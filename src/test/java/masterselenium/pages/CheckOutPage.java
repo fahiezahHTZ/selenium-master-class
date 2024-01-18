@@ -31,32 +31,38 @@ public class CheckOutPage extends BasePage {
     }
 
     public CheckOutPage enterFirstName(String fstName){
-        driver.findElement(firstNameFld).clear();
-        driver.findElement(firstNameFld).sendKeys(fstName);
+       WebElement e = waitForElementToBeVisible(firstNameFld);
+        e.clear();
+        e.sendKeys(fstName);
         return this;
     }
     public CheckOutPage enterLastName(String LstName){
-        driver.findElement(lastNameFld).clear();
-        driver.findElement(lastNameFld).sendKeys(LstName);
+        WebElement e = waitForElementToBeVisible(lastNameFld);
+        e.clear();
+        e.sendKeys(LstName);
         return this;
     }
     public CheckOutPage enterBillingAddress(String addr){
-        driver.findElement(addressLineOneFld).clear();
-        driver.findElement(addressLineOneFld).sendKeys(addr);
+        WebElement e = waitForElementToBeVisible(addressLineOneFld);
+        e.clear();
+        e.sendKeys(addr);
         return this;
     }
     public CheckOutPage enterBillingCity(String city){
-        driver.findElement(billingCityFld).clear();
-        driver.findElement(billingCityFld).sendKeys(city);
+        WebElement e = waitForElementToBeVisible(billingCityFld);
+        e.clear();
+        e.sendKeys(city);
         return this;
     }
     public CheckOutPage selectCountry(String countryName){
-        Select select = new Select(driver.findElement(contryDropDown));
+        WebElement e = waitForElementToBeClickable(contryDropDown);
+        Select select = new Select(e);
         select.selectByVisibleText(countryName);
         return this;
     }
     public CheckOutPage selectState(String stateName){
-        Select select = new Select(driver.findElement(stateDropdown));
+        WebElement e = waitForElementToBeClickable(stateDropdown);
+        Select select = new Select(e);
         select.selectByVisibleText(stateName);
         return this;
     }
@@ -97,14 +103,15 @@ public class CheckOutPage extends BasePage {
 
     }
     public CheckOutPage login(String usname, String pwd){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(usname);
+        WebElement e = waitForElementToBeVisible(username);
+        e.sendKeys(usname);
         driver.findElement(password).sendKeys(pwd);
         driver.findElement(loginBtn).click();
         return this;
     }
     public String getTextSuccessNotice() throws InterruptedException {
-        Thread.sleep(3000);
-        return driver.findElement(successNotice).getText();
+        WebElement e = waitForElementToBeVisible(successNotice);
+        return e.getText();
     }
 
 

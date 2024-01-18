@@ -43,6 +43,13 @@ public class BasePage {
 
     }
 
+    public WebElement waitForElementToBeVisible(By element){
+       return wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+    }
+    public WebElement waitForElementToBeClickable(By element){
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
 
 
 

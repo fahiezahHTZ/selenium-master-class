@@ -49,17 +49,17 @@ String searchfor = "Blue";
         */
         StorePage storePage = new HomePage(driver)
                 .load()
-                .navigateToStoreUsingMenu()
-                .search(searchfor);
+                .navigateToStoreUsingMenu();
+        storePage.isLoaded();
+        storePage.search(searchfor);
 
 //        StorePage storePage = homePage.navigateToStoreUsingMenu();//return storepage-it is called interface
 //        storePage.search("Blue"); //STRUCTURAL PAGE OBJECT
         Assert.assertEquals(storePage.getTitle(),"Search results: “"+searchfor+"”");
-
-
         storePage.clickAddToCartBtn(product.getName());
-        Thread.sleep(2000);
+
         CartPage cartPage =  storePage.clickViewCart();
+        cartPage.isLoaded();
         Assert.assertEquals(cartPage.getProductName(),product.getName());
 
         CheckOutPage checkOutpage = cartPage.
@@ -91,15 +91,12 @@ String searchfor = "Blue";
                 .navigateToStoreUsingMenu();
         storePage.isLoaded();
         storePage.search(searchfor);
-
         Assert.assertEquals(storePage.getTitle(),"Search results: “"+searchfor+"”");
 
-
         storePage.clickAddToCartBtn(product.getName());
-        Thread.sleep(2000);
         CartPage cartPage =  storePage.clickViewCart();
+        cartPage.isLoaded();
         Assert.assertEquals(cartPage.getProductName(),product.getName());
-
 
         CheckOutPage checkOutpage = cartPage.clickCheckOutBtn();
         checkOutpage.clickHereToLogin();
