@@ -1,4 +1,8 @@
+# Custom folders
 target
+
+# IntelliJ
+.idea
 
 # Compiled class file
 *.class
