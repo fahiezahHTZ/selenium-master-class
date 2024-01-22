@@ -1,0 +1,44 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Suite1" verbose="1">
+    <test name="Run with FIREFOX">
+
+        <!-- for passing browser through TestNG
+            1. add parameter name and value here
+            2. add @Parameter annotation under browser setup file
+
+         -->
+        <parameter name="browser" value="FIREFOX"></parameter>
+
+
+        <!-- run by Class-->
+        <classes>
+            <class name="masterselenium.tests.MyFirstTestCase"/>
+        </classes>
+
+    </test>
+    <test name="Run with Chrome">
+        <parameter name="browser" value="CHROME"></parameter>
+        <classes>
+            <class name="masterselenium.tests.MyFirstTestCase"/>
+        </classes>
+    </test>
+</suite>
+
+<!-- Note:
+
+give 2 test name, in above, run by both chroome and firefox,
+but it will work sequentially only
+
+
+           //run by "Packages"
+                <packages>
+                    <package name="masterselenium.tests"/>
+                </packages>
+
+                  //run by Class-
+                <classes>
+                <class name="masterselenium.tests.MyFirstTestCase"/>
+                </classes>
+
+        -->
