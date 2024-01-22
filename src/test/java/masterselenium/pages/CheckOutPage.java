@@ -3,6 +3,7 @@ package masterselenium.pages;
 import masterselenium.Objects.BillingAddress;
 import masterselenium.base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -24,6 +25,9 @@ public class CheckOutPage extends BasePage {
     private final By overlay = By.cssSelector(".blockUI.blockOverlay");
     private final By contryDropDown = By.id("billing_country");
     private final By stateDropdown = By.id("billing_state");
+
+    By alternateCountryDropDown = By.id("select2-billing_country-container");
+    By alternateStateDropDown = By.id("select2-billing_state-container");
 
 
     public CheckOutPage(WebDriver driver) {
@@ -55,15 +59,27 @@ public class CheckOutPage extends BasePage {
         return this;
     }
     public CheckOutPage selectCountry(String countryName){
-        WebElement e = waitForElementToBeClickable(contryDropDown);
+        //this has issue in firefox, as ele could not be scrolled into view
+       /* WebElement e = waitForElementToBeClickable(contryDropDown);
         Select select = new Select(e);
-        select.selectByVisibleText(countryName);
+        select.selectByVisibleText(countryName);*/
+
+
+        waitForElementToBeClickable(alternateCountryDropDown).click();
+        WebElement e =waitForElementToBeClickable (By.xpath("//li[text()='"+countryName+"']"));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",e);
+        e.click();
         return this;
     }
     public CheckOutPage selectState(String stateName){
-        WebElement e = waitForElementToBeClickable(stateDropdown);
+        /*WebElement e = waitForElementToBeClickable(stateDropdown);
         Select select = new Select(e);
         select.selectByVisibleText(stateName);
+        */
+        waitForElementToBeClickable(alternateStateDropDown).click();
+        WebElement e =waitForElementToBeClickable (By.xpath("//li[text()='"+stateName+"']"));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",e);
+        e.click();
         return this;
     }
     public CheckOutPage enterBillingPostCode(String postCode){
