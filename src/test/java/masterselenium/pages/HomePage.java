@@ -13,7 +13,7 @@ public class HomePage extends BasePage {
     }
 
     public HomePage load(){
-        load("/"); //url is base URL
+        super.load("/"); //url is base URL
         wait.until(ExpectedConditions.titleContains("AskOmDch"));
         return this;
     }

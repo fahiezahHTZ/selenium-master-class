@@ -11,16 +11,15 @@ import java.util.Locale;
 
 
 public class DriverManager {
+    WebDriver driver;
+    public WebDriver initializeDriver(String browser)  {
 
-    public WebDriver initializeDriver(String brwser)  {
-        WebDriver driver;
 
         //to run from Maven command line/JVM argument with System.get property)
 
-       brwser = System.getProperty("browser",brwser);//can run by both maven command/testng Param
         //DriverType.valueOf -> converted to Enum when receive browsername
         //localBrowser = brwser;
-        switch (DriverType.valueOf(brwser)){
+        switch (DriverType.valueOf(browser)){
             case CHROME:
                 WebDriverManager.chromedriver().cachePath("Drivers").setup();
                 driver = new ChromeDriver();

@@ -14,14 +14,12 @@ public class Product {
     }
 
     public Product(int id) throws IOException {
-     //got array in products
         Product[] products = JacksonUtils.deserializeJson("products.json",Product[].class);
-        for (Product product:products) {
-            if(product.getId() == id){
+        for (Product p:products) {
+            if(p.getId() == id){
                 this.id = id;
-                this.name = product.getName();
+                this.name = p.getName();
             }
-
         }
     }
     public int getId() {

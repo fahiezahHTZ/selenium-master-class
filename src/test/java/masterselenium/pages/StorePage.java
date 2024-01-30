@@ -19,8 +19,7 @@ public class StorePage extends BasePage {
 
     public StorePage search(String txt) //Functional PAGE OBJECT
     {
-        enterTextInSearchFld(txt).
-                clickSearchBtn();
+        enterTextInSearchFld(txt).clickSearchBtn();
         return this;
     }
     public Boolean isLoaded(){

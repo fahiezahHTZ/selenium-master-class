@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
 <suite name="Suite1" verbose="1">
-    <test name="Run with FIREFOX">
+    <test name="Run with CHROME">
 
         <!-- for passing browser through TestNG
             1. add parameter name and value here
@@ -10,18 +10,12 @@
          -->
         <parameter name="browser" value="FIREFOX"></parameter>
 
-
         <!-- run by Class-->
         <classes>
             <class name="masterselenium.tests.MyFirstTestCase"/>
         </classes>
 
-    </test>
-    <test name="Run with Chrome">
-        <parameter name="browser" value="CHROME"></parameter>
-        <classes>
-            <class name="masterselenium.tests.MyFirstTestCase"/>
-        </classes>
+        <!-- run by Class-->
     </test>
 </suite>
 

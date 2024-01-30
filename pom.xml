@@ -23,13 +23,20 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
         <configuration>
+
+          <!--> for parallel run by methods/class -->
+<!--        <parallel>methods</parallel>
+          <threadCount>2</threadCount>-->
+          <!-- we can add here more testng file as per below
+          for example: 1 testng for chrome, 1 testng for firefox
+
+          below is running from testng, if we want from maven passing browser value
+          below suiteXMLfile should be commented
+            -->
           <suiteXmlFiles>
             <suiteXmlFile>testng.xml</suiteXmlFile>
-            <!-- we can add here more testng file as per below
-            for example: 1 testng for chrome, 1 testng for firefox
-            <suiteXmlFile>testng1.xml</suiteXmlFile>
-            -->
           </suiteXmlFiles>
+
         </configuration>
       </plugin>
     </plugins>
@@ -65,12 +72,14 @@
     </dependency>
 
 
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
+
 
 
   </dependencies>
