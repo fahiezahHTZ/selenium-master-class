@@ -17,6 +17,11 @@ public class StorePage extends BasePage {
         super(driver);
     }
 
+    public StorePage load(){
+        load("/store");
+        return this;
+    }
+
     public StorePage search(String txt) //Functional PAGE OBJECT
     {
         enterTextInSearchFld(txt).clickSearchBtn();
