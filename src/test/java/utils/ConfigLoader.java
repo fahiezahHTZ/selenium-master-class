@@ -56,6 +56,11 @@ public class ConfigLoader {
         if(prop != null) return prop;
         else throw new RuntimeException("property password is not specified in the properties file");
     }
+    public String getEmail(){
+        String prop = properties.getProperty("email");
+        if(prop != null) return prop;
+        else throw new RuntimeException("property email is not specified in the properties file");
+    }
 
 
 

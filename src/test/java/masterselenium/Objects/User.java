@@ -11,14 +11,27 @@ import java.util.Properties;
 public class User {
     private String username;
     private String password;
+    private String email;
 
-    private int age;
+    public String getEmail() {
+        return email;
+    }
 
-    public User(){ }
-
+    public User setEmail(String email) {
+        this.email = email;
+        return this;
+    }
     public User(String username,String pwd) throws IOException {
         this.username = username;
         this.password = pwd;
+        this.email = email;
+    }
+
+    public User(){ }
+    public User(String username,String pwd,String email) throws IOException {
+        this.username = username;
+        this.password = pwd;
+        this.email = email;
     }
 
     @JsonGetter("username")
@@ -27,9 +40,10 @@ public class User {
     }
 
     @JsonSetter("username")
-    public void setUserName(String username) {
+    public User setUserName(String username) {
 
         this.username = username;
+        return this;
     }
 
     @JsonGetter("password")
@@ -38,9 +52,10 @@ public class User {
     }
 
     @JsonSetter("password")
-    public void setPassword(String password) {
+    public User setPassword(String password) {
 
         this.password = password;
+        return this;
     }
 
 }
