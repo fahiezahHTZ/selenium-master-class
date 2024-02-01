@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class AddToCart extends BaseTest {
+public class AddToCartTest extends BaseTest {
 
     @Test
     public void addToCartFromStorePage() throws IOException {
