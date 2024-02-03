@@ -11,10 +11,10 @@ import java.util.Locale;
 
 
 public class DriverManager {
-    WebDriver driver;
+    WebDriver driver;f
     public WebDriver initializeDriver(String browser)  {
 
-
+        Thread.sleep(1000);
         //to run from Maven command line/JVM argument with System.get property)
 
         //DriverType.valueOf -> converted to Enum when receive browsername
@@ -34,7 +34,7 @@ public class DriverManager {
         }
         driver.manage().window().maximize();
 
-       // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         return driver;
     }
 }

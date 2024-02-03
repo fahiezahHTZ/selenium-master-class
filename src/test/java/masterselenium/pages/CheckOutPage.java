@@ -1,6 +1,7 @@
 package masterselenium.pages;
 
 import masterselenium.Objects.BillingAddress;
+import masterselenium.Objects.User;
 import masterselenium.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -19,20 +20,25 @@ public class CheckOutPage extends BasePage {
     private final By placeOrderBtn = By.id("place_order");
     private final By successNotice = By.cssSelector(".woocommerce-notice");
     private final By clickHeretoLogin = By.className("showlogin");
-    private final By username = By.id("username");
-    private final By password = By.id("password");
+    private final By usernamefield = By.id("username");
+    private final By passwordfield = By.id("password");
     private final By loginBtn = By.name("login");
     private final By overlay = By.cssSelector(".blockUI.blockOverlay");
     private final By contryDropDown = By.id("billing_country");
     private final By stateDropdown = By.id("billing_state");
-
+    private final By productName = By.cssSelector("td[class='product-name']");
     By alternateCountryDropDown = By.id("select2-billing_country-container");
     By alternateStateDropDown = By.id("select2-billing_state-container");
-
-
+    private final By cashOnDeliveryTransferRadioBtn = By.id("payment_method_cod");
+    private final By directBankTransferRadioBtn = By.id("payment_method_bacs");
     public CheckOutPage(WebDriver driver) {
         super(driver);
     }
+    public CheckOutPage load(){
+        load("/checkout/");
+        return this;
+    }
+
 
     public CheckOutPage enterFirstName(String fstName){
        WebElement e = waitForElementToBeVisible(firstNameFld);
@@ -115,20 +121,49 @@ public class CheckOutPage extends BasePage {
     public CheckOutPage clickHereToLogin(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(clickHeretoLogin)).click();
         return this;
-
-
     }
-    public CheckOutPage login(String usname, String pwd){
-        WebElement e = waitForElementToBeVisible(username);
-        e.sendKeys(usname);
-        driver.findElement(password).sendKeys(pwd);
-        driver.findElement(loginBtn).click();
+    public CheckOutPage enterUsername(String username){
+        waitForElementToBeVisible(usernamefield).sendKeys(username);
         return this;
     }
+    public CheckOutPage enterPassword(String pwd){
+        waitForElementToBeVisible(passwordfield).sendKeys(pwd);
+        return this;
+    }
+    public CheckOutPage clickLoginBtn(){
+        waitForElementToBeClickable(loginBtn).click();
+        return this;
+    }
+
+    public CheckOutPage login(User user){
+      return enterUsername(user.getUserName())
+              .enterPassword(user.getPassword())
+              .clickLoginBtn();
+    }
+
+    public CheckOutPage selectDirectBankTransfer(){
+        WebElement e = waitForElementToBeClickable(directBankTransferRadioBtn);
+       if(!e.isSelected()){
+           e.click();
+       }
+       return this;
+    }
+    public CheckOutPage selctCashOnDeliveryTransfer(){
+        WebElement e =waitForElementToBeClickable(cashOnDeliveryTransferRadioBtn);
+        if(!e.isSelected()){
+            e.click();
+        }
+        return this;
+    }
+
     public String getTextSuccessNotice() throws InterruptedException {
         WebElement e = waitForElementToBeVisible(successNotice);
         return e.getText();
     }
+    public String getProductName(){
+       return waitForElementToBeVisible(productName).getText();
+    }
+
 
 
 }

@@ -1,11 +1,13 @@
 package masterselenium.base;
 
+import io.restassured.http.Cookies;
 import masterselenium.factory.DriverManager;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
+import utils.CookiesUtil;
+
+import java.util.List;
 
 public class BaseTest {
     //protected WebDriver driver; <-- need to create threadlocal to run parallel
@@ -19,10 +21,10 @@ public class BaseTest {
     }
 
     @Parameters("browser")
-    @BeforeTest
+    @BeforeMethod
     public void startDriver(@Optional String browser) // CRHOME
     {
-        browser = System.getProperty("browser", browser);//can run by both maven command/testng Param
+       // browser = System.getProperty("browser", browser);//can run by both maven command/testng Param
        if(browser == null) browser = "CHROME";
         //System.setProperty("webdriver.chrome.driver", "/Users/fahiezah/Desktop/2024Projects/SeleniumJavaMasterClass/src/test/java/utils/chromedriver");
         //driver = new DriverManager().initializeDriver(browser);
@@ -32,11 +34,22 @@ public class BaseTest {
                 "Driver = " +getDriver());
 
     }
-    @AfterTest
+    @AfterMethod
     public void tearDown() throws InterruptedException {
-        Thread.sleep(100);
-        System.out.println("CURRENT THREAD: " + Thread.currentThread().getId()+ ","+
-                "Driver = " +getDriver());
+        Thread.sleep(1000);
+//        System.out.println("CURRENT THREAD: " + Thread.currentThread().getId()+ ","+
+//                "Driver = " +getDriver());
+
+
         getDriver().quit();
+
+    }
+
+    public void injectCookiesToBrowser(Cookies cookies){
+
+        List<Cookie> selenimCookies = new CookiesUtil().convertRestAssuredCookiesToSeleniumCookies(cookies);
+        for(Cookie cookie: selenimCookies){
+            getDriver().manage().addCookie(cookie);
+        }
     }
 }

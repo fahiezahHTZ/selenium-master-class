@@ -33,10 +33,11 @@
           below is running from testng, if we want from maven passing browser value
           below suiteXMLfile should be commented
             -->
+          <!--
           <suiteXmlFiles>
             <suiteXmlFile>testng.xml</suiteXmlFile>
           </suiteXmlFiles>
-
+          -->
         </configuration>
       </plugin>
     </plugins>

@@ -50,7 +50,7 @@ String searchfor = "Blue";
                 "Thank you. Your order has been received.");
     }
 
-    @Test
+   @Test
     public void LoginAndCheckOUtUsingDirectBankTransfer() throws IOException, InterruptedException {
         BillingAddress billingAddress = JacksonUtils.deserializeJson("myBillingAddress.json",BillingAddress.class);
         Product product = new Product(1215);
@@ -74,7 +74,7 @@ String searchfor = "Blue";
 
 
         checkOutpage.
-                login(user.getUserName(), user.getPassword());
+                login(user);
         checkOutpage.
                      setBillingAddress(billingAddress).
                      placeOrder();
