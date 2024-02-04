@@ -3,10 +3,7 @@ package masterselenium.pages;
 import masterselenium.Objects.BillingAddress;
 import masterselenium.Objects.User;
 import masterselenium.base.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
@@ -134,11 +131,16 @@ public class CheckOutPage extends BasePage {
         waitForElementToBeClickable(loginBtn).click();
         return this;
     }
+    private CheckOutPage waitForLoginBtnToDisappeared(){
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loginBtn));
+        return this;
+    }
 
     public CheckOutPage login(User user){
       return enterUsername(user.getUserName())
               .enterPassword(user.getPassword())
-              .clickLoginBtn();
+              .clickLoginBtn()
+              .waitForLoginBtnToDisappeared();
     }
 
     public CheckOutPage selectDirectBankTransfer(){
@@ -160,10 +162,18 @@ public class CheckOutPage extends BasePage {
         WebElement e = waitForElementToBeVisible(successNotice);
         return e.getText();
     }
-    public String getProductName(){
-       return waitForElementToBeVisible(productName).getText();
-    }
-
-
+    public String getProductName() throws Exception {
+        int i=5;
+        while(i>0){
+            try{
+                return waitForElementToBeVisible(productName).getText();
+            }catch (StaleElementReferenceException e){
+                System.out.println("Not Found, trying again"+e);
+            }
+            Thread.sleep(5000);
+            i--;
+            }
+            throw new Exception("Element not found");
+        }
 
 }

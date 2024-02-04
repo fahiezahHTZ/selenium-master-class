@@ -1,7 +1,9 @@
 package masterselenium.base;
 
 import io.restassured.http.Cookies;
-import masterselenium.factory.DriverManager;
+import masterselenium.constants.DriverType;
+import masterselenium.factory.DriverManagerFactory;
+import masterselenium.factory.DriverManagerOriginal;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
@@ -24,22 +26,22 @@ public class BaseTest {
     @BeforeMethod
     public synchronized void startDriver(@Optional String browser) // CRHOME
     {
-       // browser = System.getProperty("browser", browser);//can run by both maven command/testng Param
-      if(browser == null) browser = "CHROME";
+       browser = System.getProperty("browser", browser);//can run by both maven command/testng Param
+   //   if(browser == null) browser = "CHROME";
         //System.setProperty("webdriver.chrome.driver", "/Users/fahiezah/Desktop/2024Projects/SeleniumJavaMasterClass/src/test/java/utils/chromedriver");
         //driver = new DriverManager().initializeDriver(browser);
-        setDriver(new DriverManager().initializeDriver(browser));
+   //     setDriver(new DriverManagerOriginal().initializeDriver(browser));
         //only this class able to set driver,
+        setDriver(DriverManagerFactory.getManager(DriverType.valueOf(browser)).createDriver());
         System.out.println("CURRENT THREAD: " + Thread.currentThread().getId()+ ","+
                 "Driver = " +getDriver());
 
     }
     @AfterMethod
     public synchronized void tearDown() throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(300);
 //        System.out.println("CURRENT THREAD: " + Thread.currentThread().getId()+ ","+
 //                "Driver = " +getDriver());
-
 
         getDriver().quit();
 
