@@ -24,7 +24,7 @@ public class User {
     public User(String username,String pwd) throws IOException {
         this.username = username;
         this.password = pwd;
-        this.email = email;
+
     }
 
     public User(){ }
@@ -57,5 +57,6 @@ public class User {
         this.password = password;
         return this;
     }
+
 
 }

@@ -4,6 +4,7 @@ import masterselenium.Objects.BillingAddress;
 import masterselenium.Objects.Product;
 import masterselenium.Objects.User;
 import masterselenium.base.BaseTest;
+import masterselenium.dataproviders.MyDataProvider;
 import masterselenium.pages.CartPage;
 import masterselenium.pages.CheckOutPage;
 import masterselenium.pages.HomePage;
@@ -28,15 +29,17 @@ String searchfor = "Blue";
         Product product = new Product(1215);
 
         StorePage storePage = new HomePage(getDriver())
-                .load()
+                .load().getMyHeader()
                 .navigateToStoreUsingMenu();
         storePage.isLoaded();
         storePage.search(searchfor);
 
         Assert.assertEquals(storePage.getTitle(),"Search results: “"+searchfor+"”");
-        storePage.clickAddToCartBtn(product.getName());
+        storePage.getProductThumbnail()
+                .clickAddToCartBtn(product.getName());
 
-        CartPage cartPage =  storePage.clickViewCart();
+        CartPage cartPage =  storePage.getProductThumbnail()
+                .clickViewCart();
         cartPage.isLoaded();
         Assert.assertEquals(cartPage.getProductName(),product.getName());
 
@@ -50,31 +53,34 @@ String searchfor = "Blue";
                 "Thank you. Your order has been received.");
     }
 
-   @Test
-    public void LoginAndCheckOUtUsingDirectBankTransfer() throws IOException, InterruptedException {
+   @Test(dataProvider = "getUsers", dataProviderClass = MyDataProvider.class)
+    public void LoginAndCheckOUtUsingDirectBankTransfer(User user) throws IOException, InterruptedException {
         BillingAddress billingAddress = JacksonUtils.deserializeJson("myBillingAddress.json",BillingAddress.class);
         Product product = new Product(1215);
-        User user = new User(ConfigLoader.getInstance().getUsername(), ConfigLoader.getInstance().getPassword());
+       // User user = new User(ConfigLoader.getInstance().getUsername(), ConfigLoader.getInstance().getPassword());
         StorePage storePage = new HomePage(getDriver())
                 .load()
+                .getMyHeader()
                 .navigateToStoreUsingMenu();
         storePage.isLoaded();
         storePage.search(searchfor);
         Assert.assertEquals(storePage.getTitle(),"Search results: “"+searchfor+"”");
 
-        storePage.clickAddToCartBtn(product.getName());
-        CartPage cartPage =  storePage.clickViewCart();
+        storePage.getProductThumbnail().clickAddToCartBtn(product.getName());
+        CartPage cartPage =  storePage.getProductThumbnail()
+                .clickViewCart();
         cartPage.isLoaded();
         Assert.assertEquals(cartPage.getProductName(),product.getName());
 
         CheckOutPage checkOutpage = cartPage.clickCheckOutBtn();
         checkOutpage.clickHereToLogin();
 
-        //User user = JacksonUtils.deserializeJson("user.json",User.class);
+        //User user = JacksonUtils.deserializeJson("userLogin.json",User.class);
 
 
         checkOutpage.
                 login(user);
+        Thread.sleep(5000);
         checkOutpage.
                      setBillingAddress(billingAddress).
                      placeOrder();

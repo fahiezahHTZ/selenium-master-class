@@ -22,10 +22,10 @@ public class BaseTest {
 
     @Parameters("browser")
     @BeforeMethod
-    public void startDriver(@Optional String browser) // CRHOME
+    public synchronized void startDriver(@Optional String browser) // CRHOME
     {
        // browser = System.getProperty("browser", browser);//can run by both maven command/testng Param
-       if(browser == null) browser = "CHROME";
+      if(browser == null) browser = "CHROME";
         //System.setProperty("webdriver.chrome.driver", "/Users/fahiezah/Desktop/2024Projects/SeleniumJavaMasterClass/src/test/java/utils/chromedriver");
         //driver = new DriverManager().initializeDriver(browser);
         setDriver(new DriverManager().initializeDriver(browser));
@@ -35,7 +35,7 @@ public class BaseTest {
 
     }
     @AfterMethod
-    public void tearDown() throws InterruptedException {
+    public synchronized void tearDown() throws InterruptedException {
         Thread.sleep(1000);
 //        System.out.println("CURRENT THREAD: " + Thread.currentThread().getId()+ ","+
 //                "Driver = " +getDriver());

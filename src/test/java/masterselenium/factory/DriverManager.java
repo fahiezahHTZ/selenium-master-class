@@ -11,10 +11,10 @@ import java.util.Locale;
 
 
 public class DriverManager {
-    WebDriver driver;f
+    WebDriver driver;
     public WebDriver initializeDriver(String browser)  {
 
-        Thread.sleep(1000);
+       // Thread.sleep(1000);
         //to run from Maven command line/JVM argument with System.get property)
 
         //DriverType.valueOf -> converted to Enum when receive browsername

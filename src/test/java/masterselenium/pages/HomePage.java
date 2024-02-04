@@ -1,16 +1,36 @@
 package masterselenium.pages;
 
 import masterselenium.base.BasePage;
+import masterselenium.pages.Components.MyHeader;
+import masterselenium.pages.Components.ProductThumbnail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage extends BasePage {
-    By storeMenuLink = By.cssSelector("li[id='menu-item-1227'] a[class='menu-link']");
-    private final By viewCartLink = By.cssSelector("a[title='View cart']");
+
+    //create objs for the components,
+    // create new instances of these components in the constructor of the homepage
+    private MyHeader myHeader;
+    private ProductThumbnail productThumbnail;
+
+    //here both way ok either change private to public of this 2 components
+    //or create getter methods for them to use from outside of this class
+    public MyHeader getMyHeader() {
+        return myHeader;
+    }
+
+    public ProductThumbnail getProductThumbnail() {
+        return productThumbnail;
+    }
+
     public HomePage(WebDriver driver) {
         super(driver);
+        // whenever we create new obj of homepage
+        // we will get new instance of components
+       myHeader = new MyHeader(driver);
+       productThumbnail = new ProductThumbnail(driver);
     }
 
     public HomePage load(){
@@ -19,28 +39,11 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    //is called fluent interface-//we navigate to new page, so we return that page-
-    public StorePage navigateToStoreUsingMenu() {
-        driver.findElement(storeMenuLink).click();//after we perform this action:
-        //if we still in same page, no need to return the page
-        return new StorePage(driver);
-    }
 
-    private By getAddToCartBtnElement(String productName){
 
-        return By.cssSelector("a[aria-label='Add “"+ productName +"” to your cart']");
-    }
-    public HomePage clickAddToCartBtn(String productName){
-        By addToCartBtn = getAddToCartBtnElement(productName);
-        driver.findElement(addToCartBtn).click();
-        return this;
-    }
 
-    public CartPage clickViewCart(){
-        WebElement e = waitForElementToBeClickable(viewCartLink);
-        e.click();
-        return new CartPage(driver);
-    }
+
+
 
 
 }

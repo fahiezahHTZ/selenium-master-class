@@ -5,6 +5,7 @@ import masterselenium.Objects.User;
 import masterselenium.api.actions.CartApi;
 import masterselenium.api.actions.SignUpApi;
 import masterselenium.base.BaseTest;
+import masterselenium.dataproviders.MyDataProvider;
 import masterselenium.pages.CheckOutPage;
 import org.junit.Assert;
 import org.testng.annotations.Test;
