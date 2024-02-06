@@ -1,6 +1,7 @@
 package masterselenium.pages;
 
 import com.beust.ah.A;
+import io.qameta.allure.Step;
 import masterselenium.Objects.User;
 import masterselenium.base.BasePage;
 import org.openqa.selenium.By;
@@ -17,6 +18,7 @@ public class AccountPage extends BasePage {
     public AccountPage(WebDriver driver) {
         super(driver);
     }
+    @Step
     public AccountPage load(){
         load("/account/");
         return this;
@@ -35,6 +37,7 @@ public class AccountPage extends BasePage {
         driver.findElement(registerBtn).click();
     }
 
+    @Step
     public void registerNewUser(String username,String pw, String email){
         enterUsername(username);
         enterPassword(pw);

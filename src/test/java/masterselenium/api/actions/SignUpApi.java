@@ -1,5 +1,6 @@
 package masterselenium.api.actions;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.Cookies;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;

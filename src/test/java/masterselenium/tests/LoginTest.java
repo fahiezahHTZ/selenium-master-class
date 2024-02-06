@@ -1,5 +1,6 @@
 package masterselenium.tests;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import masterselenium.Objects.Product;
 import masterselenium.Objects.User;
 import masterselenium.api.actions.CartApi;
