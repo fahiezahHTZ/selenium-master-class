@@ -20,6 +20,7 @@ public class DummyTest {
         CartApi cartapi = new CartApi();
         cartapi.addToCart(1215,1);
         System.out.println("CART COOKIES: "+cartapi.getCookies());
+        System.out.println("Test SCM Poll");
 
 
    //  System.out.println(new SignUpApi().fetchRegisterNonceValueUsingJSOUP());
