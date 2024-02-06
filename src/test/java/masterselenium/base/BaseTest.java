@@ -27,7 +27,7 @@ public class BaseTest {
     public synchronized void startDriver(@Optional String browser) // CRHOME
     {
        browser = System.getProperty("browser", browser);//can run by both maven command/testng Param
-   //   if(browser == null) browser = "CHROME";
+     if(browser == null) browser = "CHROME";
         //System.setProperty("webdriver.chrome.driver", "/Users/fahiezah/Desktop/2024Projects/SeleniumJavaMasterClass/src/test/java/utils/chromedriver");
         //driver = new DriverManager().initializeDriver(browser);
    //     setDriver(new DriverManagerOriginal().initializeDriver(browser));
